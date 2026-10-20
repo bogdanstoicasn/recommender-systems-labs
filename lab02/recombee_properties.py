@@ -13,19 +13,15 @@ REGION = 'eu-west'  # Schimbati cu 'us-west' sau regiunea potrivita daca este ca
 client = RecombeeClient(DB_NAME, PRIVATE_TOKEN, region=REGION)
 
 # TODO 2: Configurare dataset propriu
-# Descarcati un dataset (CSV) de pe Kaggle/data.world (100-10K de intrari)
-# Urcati fisierul in acelasi folder cu acest script si setati numele in variabila de mai jos
-PATH_DATASET = 'movies.csv' 
+# Dataset MovieLens 100K, pregatit in movies.csv
+PATH_DATASET = 'movies.csv'
 
 # TODO 3: Definirea schemei de date (minim 3 proprietati)
-# Adaptati aceasta lista in functie de coloanele din dataset-ul ales
-# Tipurile de date suportate de Recombee includ: 'string', 'int', 'double', 'boolean', 'timestamp'
-# Ex.: Pentru filme: titlu (string), an (int), rating (double)
+# movieId este identificatorul itemului, nu o proprietate descriptiva.
 PROPRIETATI_CATALOG = [
-    {"name": "nume_proprietate_1", "type": "string"},
-    {"name": "nume_proprietate_2", "type": "int"},
-    {"name": "nume_proprietate_3", "type": "double"},
-    # Puteti adauga si alte proprietati optionale daca dataset-ul are
+    {"name": "title", "type": "string"},
+    {"name": "release_year", "type": "int"},
+    {"name": "genres", "type": "string"},
 ]
 
 def load_dataset():
@@ -56,11 +52,11 @@ def set_properties():
     for prop in PROPRIETATI_CATALOG:
         # Validare nume proprietati valide
         if "nume_proprietate" in prop["name"]:
-            print("Eroare: Trebuie sa schimbati 'nume_proprietate_x' cu denumirile reale din coloanele fisierul vostru!")
+            print("Eroare: Trebuie sa schimbati 'nume_proprietate_x' cu denumirile reale din coloanele fisierului vostru!")
             continue
-            
+        
         try:
-            # Request API Recombee pentru adaugarea proprietatii (echivalentul adaugarii unei coloane intr-un tabel)
+            # Request API Recombee pentru adaugarea proprietatii
             client.send(AddItemProperty(prop["name"], prop["type"]))
             print(f"Proprietatea '{prop['name']}' ({prop['type']}) a fost adaugata cu succes.")
         except APIException as e:
