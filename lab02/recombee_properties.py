@@ -1,13 +1,13 @@
 import pandas as pd
-from recombee_api_client.api_client import RecombeeClient
+from recombee_api_client.api_client import RecombeeClient, Region
 from recombee_api_client.api_requests import AddItemProperty, ListItemProperties
 from recombee_api_client.exceptions import APIException
 
 # TODO 1: Configurare credentiale Recombee
 # Introduceti datele din contul vostru (Settings -> API Logins in Recombee Admin UI)
-DB_NAME = 'numele_bazei_tale_de_date'
-PRIVATE_TOKEN = 'tokenul_tau_privat'
-REGION = 'eu-west'  # Schimbati cu 'us-west' sau regiunea potrivita daca este cazul
+DB_NAME = 'bogdan-sr-dev'
+PRIVATE_TOKEN = 'token_privat'
+REGION = Region.EU_WEST  # Schimbati cu 'us-west' sau regiunea potrivita daca este cazul
 
 # Initializarea clientului Recombee
 client = RecombeeClient(DB_NAME, PRIVATE_TOKEN, region=REGION)
